@@ -276,7 +276,9 @@ function updateMdpVisiteur($pdo)
             $uneLettrehasard = substr($lettres, rand(33, 1), 1);
             $mdp = $mdp . $uneLettrehasard;
         }
-        $req = "update visiteur set mdp ='$mdp' where visiteur.id ='$id' ";
+        $hashMdp = password_hash($mdp, PASSWORD_DEFAULT);
+        $req = "update visiteur set mdp ='" . $hashMdp . "' where visiteur.id ='" . $id . "';";
+       //$req = "UPDATE visiteur SET mdp ='" . $hashMdp . "' WHERE id='" . $id . "';";
         $pdo->exec($req);
     }
 }
