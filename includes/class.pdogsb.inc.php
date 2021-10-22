@@ -507,5 +507,10 @@ class PdoGsb {
         $requetePrepare->execute();
         return $requetePrepare->fetch()['codea2f'];
     }
+    
+    function connecterA2f($code)
+{
+    $_SESSION['codeA2f'] = $code;
+}
 
 }

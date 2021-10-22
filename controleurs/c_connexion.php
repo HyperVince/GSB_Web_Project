@@ -36,18 +36,17 @@ switch ($action) {
             $nom = $visiteur['nom'];
             $prenom = $visiteur['prenom'];
             connecter($id, $nom, $prenom);
-            header('Location: index.php');
+            $email = $visiteur['email'];
+            $code = rand(1000, 9999);
+            $pdo->setCodeA2f($id, $code);
+            mail($email, '[GSB-AppliFrais] Code de vérification', "Code : $code");
+//            include '';
+            header('Location: index.php?uc=code2Facteurs');
         }
         break;
     default:
         include 'vues/v_connexion.php';
         break;
-
-        $email = $visiteur['email'];
-        $code = rand(1000, 9999);
-        $pdo->setCodeA2f($id, $code);
-        mail($email, '[GSB-AppliFrais] Code de vérification', "Code : $code");
-        include 'vues/v_code2facteurs.php';
 
     case 'valideA2fConnexion':
         $code = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_STRING);
